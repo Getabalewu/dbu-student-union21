@@ -3,6 +3,7 @@ import { Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { apiService } from "../../services/api";
 
 export function ResetPassword() {
     const [password, setPassword] = useState("");
@@ -44,15 +45,7 @@ export function ResetPassword() {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/auth/reset-password/${resetToken}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ password }),
-            });
-
-            const data = await response.json();
+            const data = await apiService.resetPassword(resetToken, password);
 
             if (data.success) {
                 toast.success(data.message);
@@ -61,7 +54,7 @@ export function ResetPassword() {
                 toast.error(data.message || "Error resetting password");
             }
         } catch (error) {
-            toast.error("Server connection failed");
+            toast.error(error.message || "Server connection failed");
         } finally {
             setIsLoading(false);
         }

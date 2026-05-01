@@ -31,7 +31,7 @@ const sendRepresentativeAppointmentEmail = async (email, name, clubName) => {
             <p>You have been officially appointed as the <strong>Club Representative (President)</strong> for <strong>${clubName}</strong>.</p>
             <p>You now have access to the "Manage Club" dashboard where you can approve members and submit activity reports.</p>
             <div style="margin: 20px 0;">
-                <a href="http://localhost:5173/clubs" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Go to Dashboard</a>
+                <a href="${process.env.FRONTEND_URL || "http://localhost:5173"}/clubs" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Go to Dashboard</a>
             </div>
             <p>Keep up the great work!</p>
             <hr />
@@ -80,7 +80,7 @@ const sendUnrestrictionEmail = async (email, name) => {
             <p>Good news! Your account restrictions have been lifted by the DBU Student Union Coordinator.</p>
             <p>You can now log in and access all platform features as usual.</p>
             <div style="margin: 20px 0;">
-                <a href="http://localhost:5173/login" style="background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Log In Now</a>
+                <a href="${process.env.FRONTEND_URL || "http://localhost:5173"}/login" style="background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Log In Now</a>
             </div>
             <hr />
             <p style="font-size: 12px; color: #999;">DBU Student Council Management System</p>

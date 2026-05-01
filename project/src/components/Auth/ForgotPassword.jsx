@@ -3,6 +3,7 @@ import { Mail, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { apiService } from '../../services/api';
 
 export function ForgotPassword() {
     const [email, setEmail] = useState('');
@@ -14,15 +15,7 @@ export function ForgotPassword() {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            const data = await response.json();
+            const data = await apiService.forgotPassword(email);
 
             if (data.success) {
                 toast.success(data.message);
@@ -30,7 +23,7 @@ export function ForgotPassword() {
                 toast.error(data.message || 'Error sending reset email');
             }
         } catch (error) {
-            toast.error('Server connection failed');
+            toast.error(error.message || 'Server connection failed');
         } finally {
             setIsLoading(false);
         }
